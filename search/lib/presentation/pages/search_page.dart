@@ -18,7 +18,7 @@ class SearchPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Search'),
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: kMikadoYellow,
             tabs: [
               Tab(text: 'Movies'),

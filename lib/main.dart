@@ -19,6 +19,7 @@ import 'package:core/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:core/presentation/provider/tv_series_list_notifier.dart';
 import 'package:core/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:core/presentation/provider/watchlist_tv_series_notifier.dart';
+import 'package:core/presentation/widgets/navigation_bottom_bar.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -89,7 +90,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
         ),
-        home: HomeMoviePage(),
+        home: NavigationBottomBar(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
