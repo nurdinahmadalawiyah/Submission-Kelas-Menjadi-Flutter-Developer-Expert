@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
-import 'package:core/presentation/pages/home_movie_page.dart';
-import 'package:core/presentation/pages/home_tv_series_page.dart';
+import 'package:core/presentation/pages/watchlist_page.dart';
 import 'package:core/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/movies.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import '../pages/watchlist_movies_page.dart';
+import 'package:tv_series/tv_series.dart';
 
 
 class NavigationBottomBar extends StatefulWidget {
@@ -34,7 +34,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
               },
             ),
             ListTile(

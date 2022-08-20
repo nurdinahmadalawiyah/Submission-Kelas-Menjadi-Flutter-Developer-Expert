@@ -1,10 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
-import 'package:core/domain/entities/movie.dart';
 import 'package:equatable/equatable.dart';
+import 'package:movies/movies.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../domain/usecases/search_movies.dart';
-
 part 'search_event.dart';
 part 'search_state.dart';
 

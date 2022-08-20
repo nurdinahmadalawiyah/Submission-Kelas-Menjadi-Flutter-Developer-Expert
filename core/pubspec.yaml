@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  movies:
+    path: ../movies
+  tv_series:
+    path: ../tv_series
+
   http: ^0.13.3
   equatable: ^2.0.3
   google_fonts: ^3.0.1
@@ -25,6 +30,7 @@ dependencies:
   firebase_core: ^1.21.0
   firebase_crashlytics: ^2.8.8
   salomon_bottom_bar: ^3.3.1
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +38,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   mockito: ^5.0.8
   build_runner: ^2.0.4
+  bloc_test: ^9.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

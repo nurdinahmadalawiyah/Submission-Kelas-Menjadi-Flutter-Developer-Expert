@@ -1,11 +1,12 @@
+// ignore_for_file: use_key_in_widget_constructors, constant_identifier_names
+
 import 'package:core/core.dart';
-import 'package:core/presentation/widgets/movie_card_list.dart';
-import 'package:core/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/movies.dart';
 import 'package:search/presentation/bloc/search_bloc.dart';
 import 'package:search/presentation/bloc/search_tv_bloc.dart';
-
+import 'package:tv_series/tv_series.dart';
 
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
@@ -13,7 +14,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
