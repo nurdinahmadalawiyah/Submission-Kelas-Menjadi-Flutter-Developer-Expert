@@ -1,6 +1,5 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv_series/tv_series.dart';
 
 class WatchlistTvSeries extends StatelessWidget {
@@ -12,25 +11,31 @@ class WatchlistTvSeries extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Consumer<WatchlistTvSeriesNotifier>(
-        builder: (context, data, child) {
-          if (data.watchlistState == RequestState.Loading) {
+      child: BlocBuilder<WatchlistTvSeriesBloc, WatchlistTvSeriesState>(
+        builder: (context, state) {
+          if (state is WatchlistTvSeriesLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (data.watchlistState == RequestState.Loaded) {
+          } else if (state is WatchlistTvSeriesHasData) {
+            final result = state.results;
             return ListView.builder(
               itemBuilder: (context, index) {
-                final tv = data.watchlistTvSeries[index];
+                final tv = result[index];
                 return TvSeriesCard(tv);
               },
-              itemCount: data.watchlistTvSeries.length,
+              itemCount: result.length,
             );
+          } else if (state is WatchlistTvSeriesError) {
+            return Expanded(
+              child: Center(
+                child: Text(state.message),
+              ),
+            );
+          } else if (state is WatchlistTvSeriesEmpty) {
+            return const Center(child: Text('Watchlist is empty'));
           } else {
-            return Center(
-              key: const Key('error_message'),
-              child: Text(data.message),
-            );
+            return const Text('Failed');
           }
         },
       ),

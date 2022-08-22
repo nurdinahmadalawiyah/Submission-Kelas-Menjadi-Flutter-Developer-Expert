@@ -1,8 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, constant_identifier_names
 
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv_series/tv_series.dart';
 
 class PopularTvSeriesPage extends StatefulWidget {
@@ -16,9 +15,7 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvSeriesNotifier>(context, listen: false)
-            .fetchPopularTvSeries());
+    context.read<TvSeriesPopularBloc>().add(LoadTvSeriesPopular());
   }
 
   @override
@@ -29,25 +26,31 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<TvSeriesPopularBloc, TvSeriesPopularState>(
+          builder: (context, state) {
+            if (state is TvSeriesPopularLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is TvSeriesPopularHasData) {
+              final result = state.results;
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.tvSeries[index];
+                  final tv = result[index];
                   return TvSeriesCard(tv);
                 },
-                itemCount: data.tvSeries.length,
+                itemCount: result.length,
               );
+            } else if (state is TvSeriesPopularError) {
+              return Expanded(
+                child: Center(
+                  child: Text(state.message),
+                ),
+              );
+            } else if (state is TvSeriesPopularEmpty) {
+              return const Text('TV Series Popular is empty');
             } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
-              );
+              return const Text('Failed');
             }
           },
         ),

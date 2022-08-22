@@ -1,23 +1,32 @@
-import 'package:core/core.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:movies/movies.dart';
-import 'package:provider/provider.dart';
-import 'popular_movies_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([PopularMoviesNotifier])
+class PopularMoviesEventFake extends Fake implements MoviePopularEvent {}
+
+class PopularMoviesStateFake extends Fake implements MoviePopularState {}
+
+class MockPopularMoviesBloc extends MockBloc<MoviePopularEvent, MoviePopularState>
+    implements MoviePopularBloc {}
 void main() {
-  late MockPopularMoviesNotifier mockNotifier;
+  late MockPopularMoviesBloc mockBloc;
+
+  setUpAll(() {
+    registerFallbackValue(PopularMoviesEventFake());
+    registerFallbackValue(PopularMoviesStateFake());
+  });
 
   setUp(() {
-    mockNotifier = MockPopularMoviesNotifier();
+    mockBloc = MockPopularMoviesBloc();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularMoviesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<MoviePopularBloc>.value(
+      value: mockBloc,
       child: MaterialApp(
         home: body,
       ),
@@ -26,7 +35,7 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+    when(() => mockBloc.state).thenReturn(MoviePopularLoading());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -39,9 +48,7 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
-
+    when(() => mockBloc.state).thenReturn(MoviePopularHasData([testMovie]));
     final listViewFinder = find.byType(ListView);
 
     await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
@@ -49,12 +56,11 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display text with message when Error',
+  testWidgets('Page should display text with message when Empty',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+    when(() => mockBloc.state).thenReturn(MoviePopularEmpty());
 
-    final textFinder = find.byKey(Key('error_message'));
+    final textFinder = find.text('Movie Popular is empty');
 
     await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
 

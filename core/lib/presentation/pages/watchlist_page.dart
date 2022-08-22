@@ -1,9 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors, constant_identifier_names, library_private_types_in_public_api
 
 import 'package:core/core.dart';
-import 'package:core/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/movies.dart';
+import 'package:movies/presentation/bloc/watchlist_movies_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tv_series/tv_series.dart';
 
@@ -19,12 +19,8 @@ class _WatchlistPageState extends State<WatchlistPage>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistMovieNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
-    Future.microtask(() =>
-        Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-            .fetchWatchlistTvSeries());
+    context.read<WatchlistTvSeriesBloc>().add(WatchlistTvSeriesData());
+    context.read<WatchlistMoviesBloc>().add(WatchlistMoviesData());
   }
 
   @override
@@ -35,10 +31,8 @@ class _WatchlistPageState extends State<WatchlistPage>
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
-    Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-        .fetchWatchlistTvSeries();
+    context.read<WatchlistTvSeriesBloc>().add(WatchlistTvSeriesData());
+    context.read<WatchlistMoviesBloc>().add(WatchlistMoviesData());
   }
 
   @override

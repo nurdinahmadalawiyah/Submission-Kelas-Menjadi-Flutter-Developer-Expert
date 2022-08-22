@@ -4,10 +4,6 @@ import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tv_series/data/models/genre_model.dart';
-import 'package:tv_series/data/models/tv_series_detail_model.dart';
-import 'package:tv_series/data/models/tv_series_model.dart';
-import 'package:tv_series/data/repositories/tv_series_repository_impl.dart';
 import 'package:tv_series/tv_series.dart';
 
 import '../../dummy_data/dummy_object_tv.dart';
