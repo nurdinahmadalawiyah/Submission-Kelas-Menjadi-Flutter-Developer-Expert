@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/presentation/pages/watchlist_page.dart';
 import 'package:core/utils/routes.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/movies.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -39,6 +40,7 @@ class _NavigationBottomBarState extends State<NavigationBottomBar> {
             ),
             ListTile(
               onTap: () {
+                FirebaseCrashlytics.instance.crash();
                 Navigator.pushNamed(context, ABOUT_ROUTE);
               },
               leading: const Icon(Icons.info_outline),

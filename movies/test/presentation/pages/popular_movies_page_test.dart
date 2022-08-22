@@ -56,6 +56,17 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
+  testWidgets('Page should display text with message when Error',
+          (WidgetTester tester) async {
+        when(() => mockBloc.state).thenReturn(MoviePopularError(('error_message')));
+
+        final textFinder = find.byKey(Key('error_message'));
+
+        await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+
+        expect(textFinder, findsOneWidget);
+      });
+
   testWidgets('Page should display text with message when Empty',
       (WidgetTester tester) async {
     when(() => mockBloc.state).thenReturn(MoviePopularEmpty());

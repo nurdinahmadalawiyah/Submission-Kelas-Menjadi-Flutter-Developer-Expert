@@ -42,10 +42,9 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
                 itemCount: result.length,
               );
             } else if (state is TvSeriesPopularError) {
-              return Expanded(
-                child: Center(
-                  child: Text(state.message),
-                ),
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else if (state is TvSeriesPopularEmpty) {
               return const Text('TV Series Popular is empty');

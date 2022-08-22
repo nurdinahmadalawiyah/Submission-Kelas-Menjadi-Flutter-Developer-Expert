@@ -140,6 +140,6 @@ void init() {
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
   locator.registerLazySingleton(() => DataConnectionChecker());
 }

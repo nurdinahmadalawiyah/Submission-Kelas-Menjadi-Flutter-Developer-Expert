@@ -42,10 +42,9 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 itemCount: result.length,
               );
             } else if (state is MovieTopRatedError) {
-              return Expanded(
-                child: Center(
-                  child: Text(state.message),
-                ),
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else if (state is MovieTopRatedEmpty) {
               return const Text('Movie Top Rated is empty');

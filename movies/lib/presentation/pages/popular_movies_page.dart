@@ -42,10 +42,9 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 itemCount: result.length,
               );
             } else if (state is MoviePopularError) {
-              return Expanded(
-                child: Center(
-                  child: Text(state.message),
-                ),
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else if (state is MoviePopularEmpty) {
               return const Text('Movie Popular is empty');

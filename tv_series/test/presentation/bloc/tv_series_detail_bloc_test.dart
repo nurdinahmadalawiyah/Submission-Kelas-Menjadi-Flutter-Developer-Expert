@@ -73,7 +73,7 @@ void main() {
 
   group('Get TvSeries Detail', () {
     blocTest<TvSeriesDetailBloc, TvSeriesDetailState>(
-      'Shoud emit TvSeriesDetailLoading, RecomendationLoading, TvSeriesDetailLoaded and RecomendationLoaded when get  Detail TvSeries and Recommendation Success',
+      'Shoud emit TvSeriesDetailLoading, RecomendationLoading, TvSeriesDetailLoaded and Recomendation Loaded when get  Detail TvSeries and Recommendation Success',
       build: () {
         when(mockGetTvSeriesDetail.execute(tId))
             .thenAnswer((_) async => Right(tTvSeriesDetail));
@@ -91,9 +91,10 @@ void main() {
           message: '',
         ),
         tvSeriesDetailStateInit.copyWith(
-          recommendationsState: RequestState.Loading,
-          tvSeriesDetail: tTvSeriesDetail,
           detailState: RequestState.Loaded,
+          tvSeriesDetail: tTvSeriesDetail,
+          recommendationsState: RequestState.Loaded,
+          tvSeriesRecommendations: tTvSeries,
           message: '',
         ),
       ],

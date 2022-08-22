@@ -25,6 +25,10 @@ class MovieRepositoryImpl implements MovieRepository {
         return Right(result.map((model) => model.toEntity()).toList());
       } on ServerException {
         return const Left(ServerFailure(''));
+      } on TlsException catch (e) {
+        return Left(CommonFailure('Certificate not valid\n${e.message}'));
+      } catch (e) {
+        return Left(CommonFailure(e.toString()));
       }
     } else {
       try {
@@ -32,6 +36,10 @@ class MovieRepositoryImpl implements MovieRepository {
         return Right(result.map((model) => model.toEntity()).toList());
       } on CacheException catch (e) {
         return Left(CacheFailure(e.message));
+      } on TlsException catch (e) {
+        return Left(CommonFailure('Certificate not valid\n${e.message}'));
+      } catch (e) {
+        return Left(CommonFailure(e.toString()));
       }
     }
   }
@@ -45,6 +53,10 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException catch (e) {
+      return Left(CommonFailure('Certificate not valid\n${e.message}'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
     }
   }
 
@@ -57,6 +69,10 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException catch (e) {
+      return Left(CommonFailure('Certificate not valid\n${e.message}'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
     }
   }
 
@@ -69,6 +85,10 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException catch (e) {
+      return Left(CommonFailure('Certificate not valid\n${e.message}'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
     }
   }
 
@@ -81,6 +101,10 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException catch (e) {
+      return Left(CommonFailure('Certificate not valid\n${e.message}'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
     }
   }
 
@@ -93,6 +117,10 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException catch (e) {
+      return Left(CommonFailure('Certificate not valid\n${e.message}'));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
     }
   }
 

@@ -42,10 +42,9 @@ class _TopRatedTvSeriesPageState extends State<TopRatedTvSeriesPage> {
                 itemCount: result.length,
               );
             } else if (state is TvSeriesTopRatedError) {
-              return Expanded(
-                child: Center(
-                  child: Text(state.message),
-                ),
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else if (state is TvSeriesTopRatedEmpty) {
               return const Text('TV Series Top Rated is empty');

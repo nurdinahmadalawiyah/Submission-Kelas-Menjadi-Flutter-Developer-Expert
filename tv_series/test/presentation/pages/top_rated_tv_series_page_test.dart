@@ -59,6 +59,17 @@ void main() {
         expect(listViewFinder, findsOneWidget);
       });
 
+  testWidgets('Page should display text with message when Error',
+          (WidgetTester tester) async {
+        when(() => mockbloc.state).thenReturn(TvSeriesTopRatedError(('error_message')));
+
+        final textFinder = find.byKey(Key('error_message'));
+
+        await tester.pumpWidget(_makeTestableWidget(TopRatedTvSeriesPage()));
+
+        expect(textFinder, findsOneWidget);
+      });
+
   testWidgets('Page should display text with message when Empty',
           (WidgetTester tester) async {
         when(() => mockbloc.state).thenReturn(TvSeriesTopRatedEmpty());

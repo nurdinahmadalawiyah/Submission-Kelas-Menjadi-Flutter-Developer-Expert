@@ -58,6 +58,7 @@ class TvSeriesDetailBloc
                 emit(state.copyWith(
                   recommendationsState: RequestState.Loaded,
                   message: '',
+                  tvSeriesRecommendations: tvSeriesRecommendations,
                 ));
               },
             );
